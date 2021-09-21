@@ -1,0 +1,36 @@
+version: "3.7"
+
+services:
+  laravel-dev:
+    build:
+      context: ./
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - "./:/var/www/html"
+
+  db:
+    image: mariadb:10.5.2
+    volumes:
+      - db-volume:/var/lib/mysql
+    environment:
+      TZ: "Europe/Rome"
+      MYSQL_ALLOW_EMPTY_PASSWORD: "no"
+      MYSQL_ROOT_PASSWORD: "rootpwd"
+      MYSQL_USER: "testuser"
+      MYSQL_PASSWORD: "testpassword"
+      MYSQL_DATABASE: "testdb"
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      UPLOAD_LIMIT: "2G"
+      MAX_EXECUTION_TIME: 50000
+    links:
+      - "db:db"
+    ports:
+      - 8081:80
+
+volumes:
+  db-volume:
