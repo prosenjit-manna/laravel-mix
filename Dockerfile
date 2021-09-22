@@ -35,6 +35,7 @@ RUN mv composer.phar /usr/local/bin/composer
 RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
 RUN apt-get install -y nodejs
 
+RUN apt-get install php-gd -y
 
 
 # Enter in docker image
